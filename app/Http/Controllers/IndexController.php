@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Payment;
 use App\User;
 use Illuminate\Http\Request;
 use Auth;
@@ -40,5 +41,15 @@ class IndexController extends BaseController
         $users = User::where(['isAdmin' => 0])->orderBy('id', 'DESC')->get();
         UserResource::withoutWrapping();
         return UserResource::collection($users);
+    }
+
+    public function payments()
+    {
+        return view('payments');
+    }
+
+    public function getPayments()
+    {
+        return Payment::with('user')->get();
     }
 }

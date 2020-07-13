@@ -87,14 +87,14 @@
             >
                 <span class="hidden-sm-and-down">CRM система</span>
             </v-toolbar-title>
-<!--            <v-text-field-->
-<!--                flat-->
-<!--                solo-inverted-->
-<!--                hide-details-->
-<!--                prepend-inner-icon="mdi-magnify"-->
-<!--                label="Search"-->
-<!--                class="hidden-sm-and-down"-->
-<!--            ></v-text-field>-->
+            <!--            <v-text-field-->
+            <!--                flat-->
+            <!--                solo-inverted-->
+            <!--                hide-details-->
+            <!--                prepend-inner-icon="mdi-magnify"-->
+            <!--                label="Search"-->
+            <!--                class="hidden-sm-and-down"-->
+            <!--            ></v-text-field>-->
             <v-spacer></v-spacer>
             <v-btn @click="logout">
                 <v-icon left>mdi-logout</v-icon>
@@ -112,7 +112,7 @@
                 >
                     <v-card style="width: 100%;">
                         <v-card-title>
-                            Пользователи
+                            Оплаты
                             <v-spacer></v-spacer>
                             <v-text-field
                                 v-model="search"
@@ -124,7 +124,7 @@
                         </v-card-title>
                         <v-data-table
                             :headers="headers"
-                            :items="users"
+                            :items="payments"
                             :search="search"
                         ></v-data-table>
                     </v-card>
@@ -236,37 +236,45 @@
         data: () => ({
             search: '',
             headers: [
+                { text: '#', value: 'id', sortable: false },
                 {
                     text: 'Имя',
                     align: 'start',
                     sortable: false,
-                    value: 'name',
+                    value: 'user.name',
                 },
-                { text: 'Email', value: 'email', sortable: false },
-                { text: 'Телефон', value: 'phone', sortable: false },
-                { text: 'Дата подписки', value: 'created_at', sortable: false },
+                { text: 'Email', value: 'user.email', sortable: false },
+                { text: 'Телефон', value: 'user.phone', sortable: false },
+                { text: 'Статус', value: 'status', sortable: false },
+                { text: 'Сумма', value: 'sum', sortable: true },
+                { text: 'Тариф', value: 'tariff', sortable: false },
+                { text: 'Дата оплаты', value: 'created_at', sortable: true },
+                { text: 'Подписка до', value: 'actived_at', sortable: false },
             ],
             dialog: false,
             drawer: null,
             items: [
                 { icon: 'mdi-contacts', text: 'Подписчики', url: '/' },
-                { icon: 'mdi-format-align-justify', text: 'Оплаты', url: '/payments' },
+                { icon: 'mdi-format-align-justify', text: 'Оплаты', url: '#' },
             ],
-            users: []
+            payments: [],
+            status_arr: [
+
+            ]
         }),
         methods: {
             logout () {
                 window.location.href = '/logout';
             },
-            getUsers () {
-                axios.get('/get-users')
-                .then(res => {
-                    this.users = res.data;
-                })
+            getPayments () {
+                axios.get('/get-payments')
+                    .then(res => {
+                        this.payments = res.data;
+                    })
             }
         },
         created () {
-            this.getUsers();
+            this.getPayments();
         }
     }
 </script>

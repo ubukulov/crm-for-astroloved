@@ -18,5 +18,7 @@ Route::post('/authenticate', 'IndexController@authenticate')->name('authenticate
 Route::get('/logout', 'IndexController@logout')->name('logout');
 Route::group(['middleware' => ['web', 'auth']], function(){
     Route::get('/', 'IndexController@welcome')->name('home');
+    Route::get('/payments', 'IndexController@payments');
     Route::get('/get-users', 'IndexController@getUsers');
+    Route::get('/get-payments', 'IndexController@getPayments');
 });

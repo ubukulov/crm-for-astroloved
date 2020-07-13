@@ -25,6 +25,7 @@ Vue.use(Vuetify);
 
 Vue.component('app', require('./components/App.vue').default);
 Vue.component('login', require('./components/Login.vue').default);
+Vue.component('payment', require('./components/Payment.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
